@@ -1,1 +1,3 @@
-Pandas, NumPy, Scikit-learn, TensorFlow
+fastapi
+uvicorn
+requests

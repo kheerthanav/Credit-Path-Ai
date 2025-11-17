@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - CreditPath AI</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      background: #f5f9ff;
+      font-family: "Segoe UI", sans-serif;
+    }
+    .dashboard-container {
+      max-width: 900px;
+      margin: 60px auto;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 25px;
+    }
+    h1 {
+      color: #004aad;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #007bff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: #005fcc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <h1>Welcome to CreditPath AI</h1>
+    <p>Your AI-powered loan recovery dashboard</p>
+
+    <div class="card">
+      <h2>Start Predicting</h2>
+      <p>You can perform single or batch loan default predictions using AI-backed analysis.</p>
+
+      <a href="index.html" class="btn">Go to Prediction Page</a>
+    </div>
+
+    <div class="card">
+      <h2>Account</h2>
+      <p>Logged in successfully.</p>
+      <a class="btn" onclick="logout()">Logout</a>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("auth_user");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - CreditPath AI</title>
+
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #005eff, #00b7ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      width: 360px;
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px 35px;
+      border-radius: 18px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+      color: #fff;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 18px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    p.subtitle {
+      text-align: center;
+      opacity: 0.8;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 42px 14px 14px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 15px;
+      backdrop-filter: blur(4px);
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      opacity: 0.7;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: white;
+      color: #005eff;
+      border-radius: 10px;
+      border: none;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.25s;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(255,255,255,0.3);
+    }
+
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      font-size: 15px;
+      color: white;
+      opacity: 0.85;
+      text-decoration: none;
+      transition: 0.25s;
+    }
+
+    .link:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>Welcome Back 👋</h2>
+    <p class="subtitle">Login to continue your CreditPath AI journey</p>
+
+    <div class="input-group">
+      <input id="email" type="email" placeholder="Email" />
+      <i class="ri-mail-line"></i>
+    </div>
+
+    <div class="input-group">
+      <input id="password" type="password" placeholder="Password" />
+      <i class="ri-lock-password-line"></i>
+    </div>
+
+    <button class="btn" onclick="login()">Login</button>
+
+    <a href="signup.html" class="link">Don’t have an account? Sign Up</a>
+
+  </div>
+
+  <script>
+  async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.message === "Login successful") {
+      // SAVE login session in browser (optional)
+      localStorage.setItem("auth_user", data.name);
+
+      // REDIRECT properly
+      window.location.href = "/dashboard";
+    } else {
+      alert(data.error || "Login failed");
+    }
+  }
+  </script>
+
+
+</body>
+</html>

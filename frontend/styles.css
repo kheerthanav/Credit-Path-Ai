@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e40af;
+}
+.logo span {
+    color: #0ea5e9;
+}
+
+nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #334155;
+}
+nav a:hover {
+    color: #1e40af;
+}
+
+.login-btn {
+    background: #1e40af;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.login-btn:hover {
+    background: #0f2d7a;
+}
+
+/* Hero */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    padding: 80px;
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    color: white;
+}
+.hero-text {
+    max-width: 500px;
+    animation: fadeIn 1s ease;
+}
+.hero-img {
+    width: 300px;
+    animation: float 3s ease-in-out infinite;
+}
+.cta-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: white;
+    color: #1e3a8a;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Sections */
+.section {
+    padding: 70px;
+    text-align: center;
+}
+.section-desc {
+    max-width: 700px;
+    margin: auto;
+}
+
+/* Cards & Grids */
+.features-grid, 
+.prediction-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.feature-card, .card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+/* Form */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+}
+
+/* FAQ */
+.faq-item {
+    margin: 20px auto;
+    text-align: left;
+    max-width: 700px;
+}
+
+/* Footer */
+footer {
+    padding: 20px;
+    background: #1e293b;
+    color: white;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}

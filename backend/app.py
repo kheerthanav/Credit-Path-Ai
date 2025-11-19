@@ -5,17 +5,25 @@ import sqlite3
 import pandas as pd
 import math
 import pickle
+import os
 
-# Load model
-with open("model.pkl", "rb") as f:
-    model = pickle.load(f)
-
-print("Model Loaded Successfully!")
-
+# --- App setup ---
 app = Flask(__name__, static_folder='../frontend', static_url_path='')
 CORS(app, supports_credentials=True)
-
 app.secret_key = "supersecretkey123"  # change later
+
+# --- Load model if available (optional) ---
+MODEL_PATH = "model.pkl"
+model = None
+if os.path.exists(MODEL_PATH):
+    try:
+        with open(MODEL_PATH, "rb") as f:
+            model = pickle.load(f)
+        print("Model Loaded Successfully!")
+    except Exception as e:
+        print("Failed to load model:", e)
+else:
+    print("No model.pkl found — using heuristic compute_risk only.")
 
 # ---------------------------
 # Initialize user database
@@ -123,9 +131,8 @@ def dashboard():
 
 
 # ---------------------------
-# Your existing prediction APIs below ↓
+# Risk computation (existing heuristic)
 # ---------------------------
-
 def compute_risk(features: dict):
     loan_amount = float(features.get('loan_amount', 0))
     monthly_income = float(features.get('monthly_income', 1)) or 1
@@ -175,38 +182,100 @@ def compute_risk(features: dict):
     }
 
 
+# ---------------------------
+# Single prediction endpoint
+# ---------------------------
 @app.route('/predict', methods=['POST'])
 def predict():
     if "user_id" not in session:
         return jsonify({"error": "Unauthorized"}), 401
 
     data = request.get_json()
-    result = compute_risk(data)
-
-    return jsonify({
-        "borrower_id": data.get("borrower_id"),
-        "result": result
-    })
-
-
-@app.route('/batch_predict', methods=['POST'])
-def batch_predict():
+    # If we have a model, try to use it; otherwise fallback to heuristic
     try:
-        file = request.files['file']
-        df = pd.read_csv(file)
+        if model is not None:
+            # If model expects a dataframe, create it carefully
+            df = pd.DataFrame([{
+                "loan_amount": data.get("loan_amount", 0),
+                "monthly_income": data.get("monthly_income", 0),
+                "interest_rate": data.get("interest_rate", 0),
+                "age": data.get("age", 0),
+                "loan_purpose": data.get("loan_purpose", ""),
+                "credit_score": data.get("credit_score", 600),
+                "active_loans_count": data.get("active_loans_count", 0),
+                "past_due_days": data.get("past_due_days", 0)
+            }])
+            # If model supports predict_proba
+            try:
+                proba = model.predict_proba(df)[:, 1][0]
+                # Map to action using same logic as compute_risk (or reuse compute_risk on raw data)
+                result = compute_risk(data)  # keep heuristic explanation but override probability
+                result['probability'] = round(float(proba), 4)
+            except Exception:
+                # fallback to heuristic if model fails
+                result = compute_risk(data)
+        else:
+            result = compute_risk(data)
 
-        # Ensure model is loaded
-        global model
-
-        # Predict
-        predictions = model.predict(df)
-
-        df['default_probability'] = predictions
-        return jsonify({"status": "success", "data": df.to_dict(orient='records')})
+        return jsonify({
+            "borrower_id": data.get("borrower_id"),
+            "result": result
+        })
 
     except Exception as e:
-        print("Error:", e)
-        return jsonify({"status": "error", "message": str(e)}), 400
+        print("Error in /predict:", e)
+        return jsonify({"error": str(e)}), 500
+
+
+# ---------------------------
+# Manual batch prediction endpoint (accepts JSON array)
+# ---------------------------
+@app.route('/batch_manual_predict', methods=['POST'])
+def batch_manual_predict():
+    if "user_id" not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    try:
+        arr = request.get_json()
+        if not isinstance(arr, list):
+            return jsonify({"error": "Send a JSON array of records"}), 400
+
+        results = []
+        for i, rec in enumerate(arr):
+            # compute risk for each record (use model if available)
+            try:
+                if model is not None:
+                    df = pd.DataFrame([{
+                        "loan_amount": rec.get("loan_amount", 0),
+                        "monthly_income": rec.get("monthly_income", 0),
+                        "interest_rate": rec.get("interest_rate", 0),
+                        "age": rec.get("age", 0),
+                        "loan_purpose": rec.get("loan_purpose", ""),
+                        "credit_score": rec.get("credit_score", 600),
+                        "active_loans_count": rec.get("active_loans_count", 0),
+                        "past_due_days": rec.get("past_due_days", 0)
+                    }])
+                    try:
+                        proba = model.predict_proba(df)[:, 1][0]
+                        r = compute_risk(rec)
+                        r['probability'] = round(float(proba), 4)
+                    except Exception:
+                        r = compute_risk(rec)
+                else:
+                    r = compute_risk(rec)
+            except Exception as e:
+                r = {"error": str(e)}
+
+            results.append({
+                "index": i,
+                "result": r
+            })
+
+        return jsonify(results)
+
+    except Exception as e:
+        print("ERROR in /batch_manual_predict:", e)
+        return jsonify({"error": str(e)}), 400
 
 
 if __name__ == '__main__':

@@ -1,190 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CreditPath AI – Smart Loan Recovery Platform</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreditPath AI – Smart Loan Recovery Platform</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <!-- Navigation -->
-    <header class="navbar">
-        <div class="logo">CreditPath <span>AI</span></div>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#features">Features</a>
-            <a href="#predict">Prediction</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <a class="login-btn" href="login.html">Login</a>
-    </header>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="logo">CreditPath <span>AI</span></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#predict">Prediction</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="login-btn" href="login.html">Login</a>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>AI-Powered Loan Recovery & Risk Intelligence</h1>
-            <p>Predict borrower default risk, prioritize recovery actions, and empower your team with actionable intelligence—powered by CreditPath AI.</p>
-            <a href="#predict" class="cta-btn">Try Prediction</a>
-        </div>
-        <img src="https://cdn-icons-png.flaticon.com/512/3209/3209073.png" class="hero-img">
-    </section>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>AI-Powered Loan Recovery & Risk Intelligence</h1>
+      <p>Predict borrower default risk, prioritize recovery actions, and empower your team with actionable intelligence—powered by CreditPath AI.</p>
+      <a href="#predict" class="cta-btn">Try Prediction</a>
+    </div>
+    <img src="https://cdn-icons-png.flaticon.com/512/3209/3209073.png" class="hero-img" alt="CreditPath">
+  </section>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <h2>About CreditPath AI</h2>
-        <p class="section-desc">
-            CreditPath AI is a smart loan recovery automation platform that uses machine learning to assess borrower behavior, 
-            predict default probabilities, and recommend optimized recovery strategies in real-time.
-        </p>
-    </section>
+  <!-- About -->
+  <section class="section" id="about">
+    <h2>About CreditPath AI</h2>
+    <p class="section-desc">
+      CreditPath AI is a smart loan recovery automation platform that uses machine learning to assess borrower behavior,
+      predict default probabilities, and recommend optimized recovery strategies in real-time.
+    </p>
+  </section>
 
-    <!-- Features -->
-    <section class="section" id="features">
-        <h2>Features</h2>
-        <div class="features-grid">
+  <!-- Features -->
+  <section class="section" id="features">
+    <h2>Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>📊 AI-Based Risk Prediction</h3>
+        <p>Predict loan default probability using advanced ML models like XGBoost.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎯 Smart Recommendation Engine</h3>
+        <p>Get automatic action suggestions: reminders, follow-up calls, field visit triggers, etc.</p>
+      </div>
+      <div class="feature-card">
+        <h3>⚡ Dynamic Thresholds</h3>
+        <p>Adaptive thresholds based on borrower profile, EMI history, and delinquency trends.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📌 Prioritization Logic</h3>
+        <p>Rank borrowers by urgency, risk, and recovery probability for efficient field operations.</p>
+      </div>
+    </div>
+  </section>
 
-            <div class="feature-card">
-                <h3>📊 AI-Based Risk Prediction</h3>
-                <p>Predict loan default probability using advanced ML models like XGBoost.</p>
-            </div>
+  <!-- How it works -->
+  <section class="section" id="how">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step-card"><span>1</span><p>Enter borrower details or create a batch manually.</p></div>
+      <div class="step-card"><span>2</span><p>AI model analyzes risk indicators and past behavior.</p></div>
+      <div class="step-card"><span>3</span><p>Get default probabilities and recommended actions instantly.</p></div>
+    </div>
+  </section>
 
-            <div class="feature-card">
-                <h3>🎯 Smart Recommendation Engine</h3>
-                <p>Get automatic action suggestions: reminders, follow-up calls, field visit triggers, etc.</p>
-            </div>
+  <!-- Prediction -->
+  <section class="section" id="predict">
+    <h2>Try Prediction</h2>
 
-            <div class="feature-card">
-                <h3>⚡ Dynamic Thresholds</h3>
-                <p>Adaptive thresholds based on borrower profile, EMI history, and delinquency trends.</p>
-            </div>
+    <div class="prediction-container">
 
-            <div class="feature-card">
-                <h3>📌 Prioritization Logic</h3>
-                <p>Rank borrowers by urgency, risk, and recovery probability for efficient field operations.</p>
-            </div>
+      <!-- Single Prediction -->
+      <div class="card">
+        <h3>Single Prediction</h3>
+        <form id="predictionForm">
+          <label>Loan Amount</label>
+          <input type="number" id="loan_amount" required>
 
-        </div>
-    </section>
+          <label>Monthly Income</label>
+          <input type="number" id="monthly_income" required>
 
-    <!-- How It Works -->
-    <section class="section" id="how">
-        <h2>How It Works</h2>
-        <div class="steps">
+          <label>Interest Rate (%)</label>
+          <input type="number" id="interest_rate" required>
 
-            <div class="step-card">
-                <span>1</span>
-                <p>Enter borrower details or upload a batch file.</p>
-            </div>
+          <label>Age</label>
+          <input type="number" id="age" required>
 
-            <div class="step-card">
-                <span>2</span>
-                <p>AI model analyzes risk indicators and past behavior.</p>
-            </div>
+          <label>Credit Score</label>
+          <input type="number" id="credit_score" required>
 
-            <div class="step-card">
-                <span>3</span>
-                <p>Get default probabilities and recommended actions instantly.</p>
-            </div>
+          <label>Active Loans Count</label>
+          <input type="number" id="active_loans">
 
-        </div>
-    </section>
+          <label>Past Due Days (DPD)</label>
+          <input type="number" id="past_due_days">
 
-    <!-- Prediction -->
-    <section class="section" id="predict">
-        <h2>Try Prediction</h2>
+          <label>Loan Purpose</label>
+          <select id="loan_purpose">
+            <option value="">Select</option>
+            <option value="home">Home</option>
+            <option value="education">Education</option>
+            <option value="business">Business</option>
+            <option value="personal">Personal</option>
+            <option value="medical">Medical</option>
+            <option value="auto">Auto</option>
+          </select>
 
-        <div class="prediction-container">
+          <button type="submit" class="cta-btn">Get Prediction</button>
+        </form>
 
-            <!-- Single Prediction -->
-            <div class="card">
-                <h3>Single Prediction</h3>
-                <form id="predictionForm">
-
-                    <label>Loan Amount</label>
-                    <input type="number" id="loan_amount" required>
-
-                    <label>Monthly Income</label>
-                    <input type="number" id="monthly_income" required>
-
-                    <label>Interest Rate (%)</label>
-                    <input type="number" id="interest_rate" required>
-
-                    <label>Age</label>
-                    <input type="number" id="age" required>
-
-                    <label>Credit Score</label>
-                    <input type="number" id="credit_score" required>
-
-                    <label>Active Loans Count</label>
-                    <input type="number" id="active_loans">
-
-                    <label>Past Due Days (DPD)</label>
-                    <input type="number" id="past_due_days">
-
-                    <label>Loan Purpose</label>
-                    <select id="loan_purpose">
-                        <option value="">Select</option>
-                        <option value="home">Home</option>
-                        <option value="education">Education</option>
-                        <option value="business">Business</option>
-                        <option value="personal">Personal</option>
-                    </select>
-
-                    <button type="submit" class="cta-btn">Get Prediction</button>
-                </form>
-
-                <p id="result"></p>
-            </div>
-
-            <!-- Batch Prediction -->
-            <div class="card">
-                <h3>Batch Prediction</h3>
-                <p>Upload a CSV file containing borrower data.</p>
-
-                <input type="file" id="batchFile" accept=".csv">
-
-                <button onclick="uploadBatch()" class="cta-btn">Upload & Predict</button>
-
-                <p id="batchResult"></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq">
-        <h2>FAQ</h2>
-
-        <div class="faq-item">
-            <h4>Is the prediction model accurate?</h4>
-            <p>Yes, the system is powered by machine learning and trained on real loan performance data.</p>
+        <div id="singleResult" class="result-card" hidden>
+          <h4 id="singleBorrower">—</h4>
+          <p id="singleProbability">Probability: —</p>
+          <p id="singleAction">Action: —</p>
+          <pre id="singleExplain" style="text-align:left;background:#f8fafc;padding:8px;border-radius:6px;"></pre>
         </div>
 
-        <div class="faq-item">
-            <h4>Can I upload bulk borrowers?</h4>
-            <p>Yes, batch prediction supports thousands of records.</p>
+        <p id="result" style="white-space:pre-line;"></p>
+      </div>
+
+      <!-- Manual Batch Prediction -->
+      <div class="card">
+        <h3>Manual Batch Prediction</h3>
+        <p>Enter the number of predictions you want to create, then fill in each row.</p>
+
+        <label>Number of tests</label>
+        <input type="number" id="batchCount" min="1" max="50" value="3">
+
+        <button id="createBatchBtn" class="cta-btn">Create Forms</button>
+
+        <div id="batchFormsContainer" style="margin-top:18px"></div>
+
+        <div style="margin-top:12px">
+          <button id="sendBatchBtn" class="cta-btn" style="display:none">Send Batch</button>
         </div>
 
-        <div class="faq-item">
-            <h4>Is my data secure?</h4>
-            <p>Your information is encrypted and stored securely.</p>
+        <div id="batchResultSection" style="margin-top:16px; display:none">
+          <h4>Batch Results</h4>
+          <table id="batchResultsTable" style="width:100%; border-collapse:collapse;">
+            <thead>
+              <tr style="background:#f1f5f9">
+                <th style="padding:8px;border:1px solid #e6eef7;text-align:left">#</th>
+                <th style="padding:8px;border:1px solid #e6eef7;text-align:left">Probability</th>
+                <th style="padding:8px;border:1px solid #e6eef7;text-align:left">Action</th>
+                <th style="padding:8px;border:1px solid #e6eef7;text-align:left">Details</th>
+              </tr>
+            </thead>
+            <tbody id="batchResultsBody"></tbody>
+          </table>
         </div>
-    </section>
 
-    <!-- Contact -->
-    <section class="section" id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: support@creditpath.ai</p>
-        <p>Phone: +91-123456789</p>
-    </section>
+        <p id="batchResult" style="margin-top:12px"></p>
+      </div>
 
-    <footer>
-        © 2025 CreditPath AI — Empowering Smarter Loan Recovery
-    </footer>
+    </div>
+  </section>
 
-    <!-- ⭐ FIX: Load your JS here -->
-    <script src="script.js"></script>
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <h4>Is the prediction model accurate?</h4>
+      <p>Yes, the system is powered by machine learning and trained on real loan performance data.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Who can use this system?</h4>
+      <p>Banks, loan officers, field collection agents, and financial institutions.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What is the recommended action?</h4>
+      <p>Based on risk score, the system suggests: Low Risk → Normal Reminder, Medium/High Risk → Follow-up Alert</p>
+    </div>
+  </section>
 
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: support@creditpath.ai</p>
+    <p>Phone: +91-123456789</p>
+  </section>
+
+  <footer>
+    © 2025 CreditPath AI — Empowering Smarter Loan Recovery
+  </footer>
+
+  <!-- load script -->
+  <script src="script.js"></script>
 </body>
 </html>
